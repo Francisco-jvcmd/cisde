@@ -1,0 +1,121 @@
+---
+import LayoutCorporativo from '../layouts/LayoutCorporativo.astro';
+
+// Placeholder articles for design — Supabase integration deferred
+const displayPosts = [
+  {
+    id: '1', title: 'El Impacto de la LOPDP en la Estrategia Corporativa Ecuatoriana',
+    excerpt: 'Un análisis profundo sobre cómo la nueva legislación de protección de datos está transformando la gobernanza empresarial y creando nuevas oportunidades competitivas para las corporaciones que se anticipan al cumplimiento.',
+    slug: 'impacto-lopdp-estrategia', published_at: '2026-04-15', content: '',
+    category: 'Regulación'
+  },
+  {
+    id: '2', title: 'Arquitectura Cloud Enterprise: Más Allá de la Migración',
+    excerpt: 'La verdadera transformación digital no consiste en mover servidores a la nube, sino en rediseñar la arquitectura de información desde sus fundamentos. Exploramos el enfoque que distingue a las corporaciones líderes.',
+    slug: 'arquitectura-cloud-enterprise', published_at: '2026-03-28', content: '',
+    category: 'Tecnología'
+  },
+  {
+    id: '3', title: 'Due Diligence Digital: El Nuevo Estándar en Fusiones y Adquisiciones',
+    excerpt: 'Las M&A del futuro requieren una evaluación tecnológica tan rigurosa como la financiera. Presentamos un framework de evaluación integral para directivos que lideran procesos de consolidación corporativa.',
+    slug: 'due-diligence-digital', published_at: '2026-03-10', content: '',
+    category: 'Estrategia'
+  },
+];
+
+const featuredPost = displayPosts[0];
+const remainingPosts = displayPosts.slice(1);
+---
+
+<LayoutCorporativo title="Blog" description="Análisis de alto nivel, novedades y perspectiva estratégica para líderes — CISDE Ecuador">
+  
+  <!-- HEADER -->
+  <section class="pt-40 pb-16 px-8 lg:px-16 bg-brand-light">
+    <div class="container mx-auto max-w-7xl">
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-10 mb-16">
+        <div>
+          <span class="text-[10px] tracking-[0.4em] uppercase font-bold text-brand-primary block mb-6 gsap-reveal">Blog & Análisis</span>
+          <h1 class="font-heading text-fluid-h1 leading-[0.95] text-brand-dark gsap-reveal">
+            Perspectivas<br/><span class="italic text-brand-primary">Estratégicas</span>
+          </h1>
+        </div>
+        <p class="text-brand-dark/60 max-w-sm font-light text-lg leading-relaxed gsap-reveal">
+          Conocimiento institucional destilado para los tomadores de decisiones que definen el rumbo del sector corporativo ecuatoriano.
+        </p>
+      </div>
+      <div class="hr-gold gsap-line-grow origin-left"></div>
+    </div>
+  </section>
+
+  <!-- FEATURED ARTICLE -->
+  <section class="px-8 lg:px-16 pb-24 bg-brand-light">
+    <div class="container mx-auto max-w-7xl">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 group cursor-pointer gsap-reveal">
+        <div class="lg:col-span-7 bg-brand-dark min-h-[400px] lg:min-h-[600px] relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-radial from-brand-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-32 h-32 border border-brand-light/5 rotate-45 group-hover:rotate-[135deg] group-hover:scale-110 transition-all duration-1000"></div>
+            <div class="absolute w-20 h-20 border border-brand-primary/10 rotate-45 group-hover:rotate-[135deg] group-hover:scale-150 transition-all duration-1000 delay-100"></div>
+          </div>
+          <div class="absolute top-8 left-8">
+            <span class="px-4 py-2 bg-brand-primary text-white text-[10px] uppercase tracking-[0.2em] font-bold">{featuredPost.category}</span>
+          </div>
+          <div class="absolute bottom-8 left-8">
+            <span class="text-brand-light/40 text-[10px] tracking-[0.2em] uppercase">Artículo Destacado</span>
+          </div>
+        </div>
+        <div class="lg:col-span-5 bg-white p-12 lg:p-16 flex flex-col justify-center border border-brand-dark/5 border-l-0">
+          <p class="text-[10px] uppercase tracking-[0.3em] text-brand-primary font-bold mb-6">
+            {new Date(featuredPost.published_at).toLocaleDateString('es-EC', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </p>
+          <h2 class="font-heading text-3xl lg:text-4xl mb-8 group-hover:text-brand-primary transition-colors duration-500 leading-tight">
+            {featuredPost.title}
+          </h2>
+          <p class="text-brand-dark/60 font-light leading-relaxed mb-10">
+            {featuredPost.excerpt}
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-8 h-px bg-brand-dark/20 group-hover:w-16 group-hover:bg-brand-primary transition-all duration-500"></div>
+            <span class="text-[10px] tracking-[0.2em] uppercase font-bold group-hover:text-brand-primary transition-colors duration-500">Leer Análisis Completo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLES GRID -->
+  <section class="px-8 lg:px-16 pb-40 bg-brand-light">
+    <div class="container mx-auto max-w-7xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20">
+        {remainingPosts.map((post) => (
+          <article class="group cursor-pointer gsap-reveal">
+            <div class="aspect-[16/10] bg-brand-dark mb-8 overflow-hidden relative">
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/60 via-transparent to-transparent z-10"></div>
+              <div class="w-full h-full flex items-center justify-center transition-transform duration-1000 group-hover:scale-105">
+                <svg class="w-16 h-16 text-brand-light/[0.03]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5">
+                  <polygon points="12 2 22 22 2 22" />
+                </svg>
+              </div>
+              <div class="absolute top-6 left-6 z-20">
+                <span class="px-3 py-1.5 bg-brand-primary text-white text-[9px] uppercase tracking-[0.2em] font-bold">{post.category}</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 mb-4">
+              <p class="text-[10px] uppercase tracking-[0.2em] text-brand-dark/40 font-semibold">
+                {new Date(post.published_at).toLocaleDateString('es-EC', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </p>
+              <div class="h-px bg-brand-dark/10 flex-grow"></div>
+            </div>
+            <h3 class="font-heading text-2xl lg:text-3xl mb-4 group-hover:text-brand-primary transition-colors duration-300 leading-tight">
+              {post.title}
+            </h3>
+            <p class="text-sm text-brand-dark/60 font-light line-clamp-3 leading-relaxed">
+              {post.excerpt}
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</LayoutCorporativo>

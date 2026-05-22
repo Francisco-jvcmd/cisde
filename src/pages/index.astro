@@ -1,0 +1,528 @@
+---
+import LayoutCorporativo from '../layouts/LayoutCorporativo.astro';
+---
+
+<LayoutCorporativo title="Home" description="CISDE Ecuador — Centro de Innovación Social y Desarrollo" darkNav={true}>
+  
+  <!-- HERO -->
+  <section id="hero-section" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-brand-dark">
+    <!-- Dynamic particle canvas background -->
+    <canvas id="hero-canvas" class="absolute inset-0 z-0 w-full h-full"></canvas>
+
+    <!-- Gradient overlay for depth -->
+    <div class="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-brand-dark/40 via-transparent to-brand-dark/60"></div>
+
+    <!-- Subtle grid overlay -->
+    <div class="absolute inset-0 z-[2] pointer-events-none opacity-[0.015]" style="background-image: linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px); background-size: 80px 80px;"></div>
+
+    <!-- Corner accent lines -->
+    <div class="absolute top-[10%] left-[6%] z-[3] pointer-events-none opacity-0 animate-fade-in" style="animation-delay: 1.8s;">
+      <div class="w-20 h-px bg-gradient-to-r from-brand-primary/25 to-transparent"></div>
+      <div class="w-px h-20 bg-gradient-to-b from-brand-primary/25 to-transparent"></div>
+    </div>
+    <div class="absolute bottom-[10%] right-[6%] z-[3] pointer-events-none opacity-0 animate-fade-in flex flex-col items-end" style="animation-delay: 2s;">
+      <div class="w-20 h-px bg-gradient-to-l from-brand-primary/25 to-transparent"></div>
+      <div class="w-px h-20 bg-gradient-to-t from-brand-primary/25 to-transparent self-end"></div>
+    </div>
+    <!-- 🎨 SVG COLOR MATRIX FILTER FOR CHAMPAGNE GOLD RE-TINT 🎨 -->
+    <svg class="absolute w-0 h-0" aria-hidden="true" focusable="false" style="pointer-events: none;">
+      <defs>
+        <filter id="champagne-gold-filter">
+          <!-- Multiplica los canales de color para convertir blanco (#FFFFFF) en Oro Champán (#F3E9DC) de forma pura -->
+          <feColorMatrix type="matrix" values="
+            1.0  0.0  0.0  0.0  0.15
+            0.8  0.0  0.0  0.0  0.10
+            0.5  0.0  0.0  0.0  0.05
+            0.0  0.0  0.0  1.0  0.0
+          " />
+        </filter>
+      </defs>
+    </svg>
+
+    <!-- ✨ IMAGE LAYER (z-10) - Separated from text to allow proper CSS Blending ✨ -->
+    <div class="absolute inset-0 z-[10] pointer-events-none flex items-center mix-blend-lighten">
+      <div class="container mx-auto px-8 lg:px-16 flex justify-center lg:justify-end w-full h-full relative">
+        <div class="hero-img-layer opacity-0 animate-fade-in flex items-center justify-center lg:justify-end w-full lg:w-1/2" style="animation-delay: 1.5s;">
+          <!-- 🛸 FLOAT CONTAINER (With perspective) 🛸 -->
+          <div class="hero-tilt-container relative w-full max-w-[350px] sm:max-w-[450px] lg:max-w-[600px]" style="perspective: 1200px;">
+            <!-- 🪐 TILT IMAGE CONTAINER (3D PERSPECTIVE) 🪐 -->
+            <div class="hero-tilt-image relative w-full h-full" style="transform-style: preserve-3d; will-change: transform;">
+              <!-- Glowing backdrop effect (radial gradient blended with screen mode to avoid color mismatch) -->
+              <div class="absolute inset-0 blur-[60px] rounded-full mix-blend-screen" style="background: radial-gradient(circle, rgba(184, 147, 90, 0.18) 0%, rgba(184, 147, 90, 0.03) 50%, transparent 75%); transform: translateZ(-40px); pointer-events: none;"></div>
+              
+              <!-- AI Image (shifted forward in Z space, blended with screen mode, circular masked, and color-shifted to Champagne Gold via SVG filter) -->
+              <img 
+                src="/hero_innovation_v2.png" 
+                alt="Innovación Tecnológica" 
+                class="relative z-10 w-full h-auto object-contain drop-shadow-[0_0_30px_rgba(184,147,90,0.3)] mix-blend-screen"
+                style="filter: url(#champagne-gold-filter) contrast(1.6) brightness(0.9); transform: translateZ(30px); -webkit-mask-image: radial-gradient(circle, black 30%, transparent 62%); mask-image: radial-gradient(circle, black 30%, transparent 62%);"
+              />
+              
+              <!-- Chroma Prisma Effect (Shifted slightly further forward in Z space with violet/blue hue rotation, circular masked) -->
+              <img 
+                src="/hero_innovation_v2.png" 
+                alt="" 
+                class="hero-chroma-prisma absolute inset-0 z-20 w-full h-auto object-contain mix-blend-screen opacity-0"
+                style="filter: contrast(1.8) brightness(1.1) saturate(1.8) hue-rotate(140deg); transform: translateZ(32px); -webkit-mask-image: radial-gradient(circle, black 30%, transparent 62%); mask-image: radial-gradient(circle, black 30%, transparent 62%); pointer-events: none; will-change: transform, opacity;"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📝 TEXT LAYER (z-20) -->
+    <div class="relative z-20 container mx-auto px-8 lg:px-16 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+      
+      <!-- Text Column -->
+      <div class="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left w-full max-w-2xl mx-auto lg:mx-0 z-10">
+        <!-- Eyebrow tag -->
+        <div class="overflow-hidden mb-10">
+          <div class="flex items-center gap-4 opacity-0 animate-fade-up" style="animation-delay: 0.3s;">
+            <div class="w-10 h-px bg-brand-primary/50"></div>
+            <p class="text-[10px] tracking-[0.5em] uppercase font-semibold text-brand-primary">
+              Centro de Innovación Social y Desarrollo
+            </p>
+            <div class="w-10 h-px bg-brand-primary/50 hidden lg:block"></div>
+          </div>
+        </div>
+
+        <!-- Main heading -->
+        <h1 class="font-heading leading-[0.9] text-brand-light mb-12 max-w-5xl">
+          <span class="block text-fluid-display opacity-0 animate-fade-up" style="animation-delay: 0.5s;">Innovación que</span>
+          <span class="block text-fluid-display italic font-light text-brand-primary-light opacity-0 animate-fade-up" style="animation-delay: 0.7s;">Transforma</span>
+        </h1>
+
+        <!-- Subheading -->
+        <p class="text-fluid-p text-brand-light/60 max-w-lg mb-16 font-light leading-relaxed opacity-0 animate-fade-up" style="animation-delay: 0.9s;">
+          Impulsamos el desarrollo tecnológico, la capacitación avanzada y la transformación digital para las organizaciones más exigentes de Ecuador.
+        </p>
+
+        <!-- CTA buttons -->
+        <div class="flex flex-col sm:flex-row gap-5 opacity-0 animate-fade-up" style="animation-delay: 1.1s;">
+          <a href="/servicios" class="magnetic-btn bg-brand-primary text-white pointer-events-auto">
+            <span class="btn-label">Nuestros Servicios</span>
+            <span class="btn-arrow bg-white"></span>
+          </a>
+          <a href="/contacto" class="magnetic-btn border border-brand-light/15 text-brand-light hover:border-brand-primary/40 pointer-events-auto">
+            <span class="btn-label">Contactar</span>
+            <span class="btn-arrow bg-brand-primary"></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Invisible Spacer to keep layout balanced on Desktop -->
+      <div class="hidden lg:block lg:flex-1 w-full max-w-[600px]"></div>
+    </div>
+  </section>
+
+  <!-- ¿QUIÉNES SOMOS? -->
+  <section class="py-32 lg:py-40 px-8 lg:px-16 bg-brand-light relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-primary/[0.03] rounded-full blur-[150px] pointer-events-none"></div>
+    <div class="container mx-auto max-w-6xl relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        <div class="lg:col-span-4">
+          <span class="text-[10px] tracking-[0.4em] uppercase font-bold text-brand-primary block mb-4 gsap-reveal">Sobre Nosotros</span>
+          <h2 class="font-heading text-fluid-h2 text-brand-dark gsap-reveal">¿Quiénes <span class="italic text-brand-primary">Somos</span>?</h2>
+          <div class="hr-gold w-16 mt-6 gsap-line-grow origin-left"></div>
+        </div>
+        <div class="lg:col-span-8">
+          <p class="text-fluid-p text-brand-dark/70 leading-[1.9] font-light mb-8 gsap-reveal">
+            <strong class="text-brand-dark font-medium">CISDE Ecuador</strong> — Centro de Innovación Social y Desarrollo — es una organización ecuatoriana dedicada a impulsar la innovación, el desarrollo tecnológico y la capacitación avanzada en el tejido empresarial e institucional del país.
+          </p>
+          <p class="text-fluid-p text-brand-dark/70 leading-[1.9] font-light gsap-reveal">
+            Nuestro equipo multidisciplinario combina experiencia en investigación, desarrollo e innovación (I+D+I) con un profundo conocimiento del ecosistema corporativo ecuatoriano, para ofrecer soluciones de máximo impacto que transforman la manera en que las organizaciones operan, compiten y crecen.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISIÓN, MISIÓN Y OBJETIVO -->
+  <section class="py-32 lg:py-40 px-8 lg:px-16 bg-brand-dark text-brand-light relative overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-brand-primary/[0.04] rounded-full blur-[150px] pointer-events-none"></div>
+    <div class="container mx-auto max-w-7xl relative z-10">
+      <div class="text-center mb-20">
+        <span class="text-[10px] tracking-[0.4em] uppercase font-bold text-brand-primary block mb-4 gsap-reveal">Nuestro Propósito</span>
+        <h2 class="font-heading text-fluid-h2 text-brand-light gsap-reveal">Principios que nos <span class="italic text-brand-primary">Definen</span></h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 gsap-stagger-container">
+        <!-- Visión -->
+        <div class="group relative bg-brand-accent/50 border border-brand-light/5 p-10 lg:p-12 flex flex-col min-h-[420px] overflow-hidden gsap-stagger-item hover:border-brand-primary/20 transition-all duration-700">
+          <div class="absolute top-0 right-0 w-40 h-40 bg-brand-primary/5 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+          <div class="mb-8">
+            <div class="w-14 h-14 border border-brand-primary/30 flex items-center justify-center mb-6 group-hover:border-brand-primary/60 transition-colors duration-500">
+              <svg class="w-6 h-6 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            </div>
+            <span class="text-[10px] tracking-[0.3em] uppercase font-bold text-brand-primary block mb-4">Visión</span>
+          </div>
+          <p class="text-brand-light/70 font-light leading-[1.9] flex-grow">
+            Ser el referente nacional e internacional en innovación social y desarrollo tecnológico, liderando la transformación digital del tejido empresarial ecuatoriano con soluciones de vanguardia que generen impacto sostenible.
+          </p>
+          <div class="mt-8 w-full h-px bg-gradient-to-r from-brand-primary/40 via-brand-primary/20 to-transparent"></div>
+        </div>
+
+        <!-- Misión -->
+        <div class="group relative bg-brand-primary/10 border border-brand-primary/15 p-10 lg:p-12 flex flex-col min-h-[420px] overflow-hidden lg:-mt-6 gsap-stagger-item hover:border-brand-primary/30 transition-all duration-700">
+          <div class="absolute top-0 right-0 w-40 h-40 bg-brand-primary/10 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+          <div class="mb-8">
+            <div class="w-14 h-14 border border-brand-primary/40 flex items-center justify-center mb-6 group-hover:border-brand-primary transition-colors duration-500">
+              <svg class="w-6 h-6 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" /></svg>
+            </div>
+            <span class="text-[10px] tracking-[0.3em] uppercase font-bold text-brand-primary block mb-4">Misión</span>
+          </div>
+          <p class="text-brand-light/70 font-light leading-[1.9] flex-grow">
+            Proveer soluciones integrales de I+D+I, capacitación avanzada y desarrollo tecnológico que empoderen a organizaciones públicas y privadas de Ecuador, acelerando su competitividad, eficiencia operativa y capacidad de innovación continua.
+          </p>
+          <div class="mt-8 w-full h-px bg-gradient-to-r from-brand-primary/60 via-brand-primary/30 to-transparent"></div>
+        </div>
+
+        <!-- Objetivo -->
+        <div class="group relative bg-brand-accent/50 border border-brand-light/5 p-10 lg:p-12 flex flex-col min-h-[420px] overflow-hidden gsap-stagger-item hover:border-brand-primary/20 transition-all duration-700">
+          <div class="absolute top-0 right-0 w-40 h-40 bg-brand-primary/5 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+          <div class="mb-8">
+            <div class="w-14 h-14 border border-brand-primary/30 flex items-center justify-center mb-6 group-hover:border-brand-primary/60 transition-colors duration-500">
+              <svg class="w-6 h-6 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>
+            </div>
+            <span class="text-[10px] tracking-[0.3em] uppercase font-bold text-brand-primary block mb-4">Objetivo</span>
+          </div>
+          <p class="text-brand-light/70 font-light leading-[1.9] flex-grow">
+            Consolidar un ecosistema de innovación que conecte la investigación científica con la aplicación empresarial, formando talento humano de alto nivel y desarrollando tecnologías que posicionen a Ecuador como un hub de innovación en la región.
+          </p>
+          <div class="mt-8 w-full h-px bg-gradient-to-r from-brand-primary/40 via-brand-primary/20 to-transparent"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <section class="py-32 px-8 lg:px-16 bg-brand-light relative overflow-hidden">
+    <div class="container mx-auto max-w-6xl relative z-10">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-0 lg:divide-x lg:divide-brand-dark/10">
+        <div class="text-center lg:px-12 gsap-reveal">
+          <span class="block font-heading text-6xl lg:text-7xl font-light text-brand-primary counter" data-target="15">0</span>
+          <span class="block text-[10px] tracking-[0.3em] uppercase mt-4 text-brand-dark/50 font-light">Años de Operación</span>
+        </div>
+        <div class="text-center lg:px-12 gsap-reveal">
+          <span class="block font-heading text-6xl lg:text-7xl font-light text-brand-primary counter" data-target="200">0</span>
+          <span class="block text-[10px] tracking-[0.3em] uppercase mt-4 text-brand-dark/50 font-light">Organizaciones</span>
+        </div>
+        <div class="text-center lg:px-12 gsap-reveal">
+          <span class="block font-heading text-6xl lg:text-7xl font-light text-brand-primary counter" data-target="98">0</span>
+          <span class="block text-[10px] tracking-[0.3em] uppercase mt-4 text-brand-dark/50 font-light">% Satisfacción</span>
+        </div>
+        <div class="text-center lg:px-12 gsap-reveal">
+          <span class="block font-heading text-6xl lg:text-7xl font-light text-brand-primary counter" data-target="50">0</span>
+          <span class="block text-[10px] tracking-[0.3em] uppercase mt-4 text-brand-dark/50 font-light">Proyectos I+D+I</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="py-40 px-8 lg:px-16 bg-brand-dark relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-radial from-brand-primary/[0.04] via-transparent to-transparent"></div>
+    <div class="container mx-auto max-w-4xl text-center relative z-10">
+      <span class="text-[10px] tracking-[0.4em] uppercase font-bold text-brand-primary block mb-8 gsap-reveal">Próximo Paso</span>
+      <h2 class="font-heading text-fluid-h1 text-brand-light leading-tight mb-12 gsap-reveal">
+        Su organización merece<br/>un <span class="italic text-brand-primary">estándar superior</span>
+      </h2>
+      <div class="gsap-reveal">
+        <a href="/contacto" class="magnetic-btn bg-brand-primary text-white">
+          <span class="btn-label">Iniciar Conversación</span>
+          <span class="btn-arrow bg-white"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</LayoutCorporativo>
+
+<style>
+  /* Responsive styles for Hero Image Layer */
+  @media (max-width: 1023px) {
+    .hero-img-layer {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.12 !important; /* Low transparency watermark effect on mobile */
+      width: 130% !important; /* Make it large and abstract behind text */
+      z-index: 0;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ── Counter Animation ──
+  document.querySelectorAll('.counter').forEach((counter) => {
+    const el = counter as HTMLElement;
+    const target = parseInt(el.dataset.target || '0');
+    
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      once: true,
+      onEnter: () => {
+        gsap.to({ val: 0 }, {
+          val: target,
+          duration: 2.5,
+          ease: 'power2.out',
+          onUpdate: function() {
+            el.textContent = Math.round(this.targets()[0].val).toString();
+          }
+        });
+      }
+    });
+  });
+
+  // ── Hero Canvas Animation ──
+  const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement;
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    let particles: Particle[] = [];
+    const particleCount = Math.floor(width * height / 15000); // Responsive particle count
+
+    class Particle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      radius: number;
+
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.radius = Math.random() * 1.5 + 0.5;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > width) this.vx = -this.vx;
+        if (this.y < 0 || this.y > height) this.vy = -this.vy;
+      }
+
+      draw() {
+        if (!ctx) return;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(184, 147, 90, 0.4)'; // brand-primary with opacity
+        ctx.fill();
+      }
+    }
+
+    const init = () => {
+      particles = [];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+    };
+
+    const animate = () => {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 150) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(184, 147, 90, ${0.15 - distance / 1000})`; // Fade lines based on distance
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animate);
+    };
+
+    init();
+    animate();
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      init();
+    });
+  }
+
+  // ── Hero 3D Tilt, Float & Chroma Prisma Animation ──
+  const heroSection = document.getElementById('hero-section');
+  const tiltContainer = document.querySelector('.hero-tilt-container') as HTMLElement;
+  const tiltImage = document.querySelector('.hero-tilt-image') as HTMLElement;
+  const chromaPrisma = document.querySelector('.hero-chroma-prisma') as HTMLElement;
+
+  if (heroSection && tiltContainer && tiltImage && chromaPrisma) {
+    // 1. Flotación constante (se aplica sobre el contenedor para no interferir con el Tilt)
+    gsap.to(tiltContainer, {
+      y: -15,
+      rotationZ: 1,
+      duration: 5,
+      ease: 'sine.inOut',
+      yoyo: true,
+      repeat: -1
+    });
+
+    // Variables para el control de velocidad y límites de emisión de ondas
+    let lastX = 0;
+    let lastY = 0;
+    let lastTime = Date.now();
+    let lastWaveTime = 0;
+
+    // 2. Inclinación 3D (Tilt) e interactividad Chroma Prisma al mover el ratón (Solo Desktop)
+    const isMobileQuery = window.matchMedia('(max-width: 1023px)');
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isMobileQuery.matches) return;
+
+      const rect = heroSection.getBoundingClientRect();
+      // Calcular la posición del ratón respecto al centro del Hero
+      const mouseX = e.clientX - rect.left - rect.width / 2;
+      const mouseY = e.clientY - rect.top - rect.height / 2;
+
+      // Calcular la velocidad de movimiento del ratón
+      const now = Date.now();
+      const dt = now - lastTime || 1;
+      const deltaX = e.clientX - lastX;
+      const deltaY = e.clientY - lastY;
+      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+      const speed = distance / dt;
+
+      lastX = e.clientX;
+      lastY = e.clientY;
+      lastTime = now;
+
+      // Inclinación 3D máxima de la imagen (8 grados para conservar la formalidad)
+      const maxTilt = 8;
+      const tiltX = -(mouseY / (rect.height / 2)) * maxTilt;
+      const tiltY = (mouseX / (rect.width / 2)) * maxTilt;
+
+      // Desfase de refracción prisma perfectamente visible (máximo 15px en sentido opuesto)
+      const prismaX = -(mouseX / (rect.width / 2)) * 15;
+      const prismaY = -(mouseY / (rect.height / 2)) * 15;
+
+      // Animar de forma fluida el contenedor de la imagen
+      gsap.to(tiltImage, {
+        rotateX: tiltX,
+        rotateY: tiltY,
+        transformPerspective: 1000,
+        duration: 0.8,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+
+      // Animar el halo del prisma (desfase cian/violeta de alta definición)
+      gsap.to(chromaPrisma, {
+        x: prismaX,
+        y: prismaY,
+        opacity: 0.65,
+        duration: 0.8,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+
+      // ── Generar la Onda de Choque Tridimensional Elegante (Efecto Expulsión 3D) ──
+      // Solo emitir si el cursor se mueve rápido (speed > 0.8 px/ms) y ha pasado el throttle de 180ms
+      if (speed > 0.8 && now - lastWaveTime > 180) {
+        lastWaveTime = now;
+
+        // Crear elemento de onda circular de luz con colores integrados de la landing page
+        const wave = document.createElement('div');
+        wave.className = 'absolute pointer-events-none mix-blend-screen';
+        wave.style.left = '5%';
+        wave.style.top = '5%';
+        wave.style.width = '90%';
+        wave.style.height = '90%';
+        wave.style.borderRadius = '50%';
+        // Borde dorado elegante y resplandor de núcleo azul cian de refracción
+        wave.style.border = '2px solid rgba(184, 147, 90, 0.75)';
+        wave.style.boxShadow = '0 0 25px rgba(184, 147, 90, 0.4), inset 0 0 25px rgba(0, 242, 254, 0.45)';
+        wave.style.filter = 'blur(10px)';
+        wave.style.transform = 'translateZ(-15px) scale(0.7)';
+        wave.style.opacity = '0';
+        wave.style.willChange = 'transform, opacity';
+        
+        tiltImage.appendChild(wave);
+
+        // Vector unitario opuesto al movimiento
+        const dirX = distance > 0 ? -deltaX / distance : 0;
+        const dirY = distance > 0 ? -deltaY / distance : 0;
+
+        // Distancia de expulsión proporcional a la velocidad (máximo 140px)
+        const travelDistance = Math.min(speed * 40, 140);
+        const targetX = dirX * travelDistance;
+        const targetY = dirY * travelDistance;
+
+        // Escala máxima de disipación proporcional al impacto
+        const targetScaleMax = Math.min(1.5 + speed * 0.15, 2.3);
+
+        // Timeline de animación de la onda para control y posterior eliminación del DOM
+        const tl = gsap.timeline({
+          onComplete: () => wave.remove()
+        });
+
+        tl.to(wave, {
+          x: targetX,
+          y: targetY,
+          scale: 1.3,
+          opacity: 0.8,
+          duration: 0.25,
+          ease: 'power1.out'
+        }).to(wave, {
+          x: targetX * 1.3,
+          y: targetY * 1.3,
+          scale: targetScaleMax,
+          opacity: 0,
+          duration: 0.75,
+          ease: 'power2.out'
+        });
+      }
+    };
+
+    const handleMouseLeave = () => {
+      if (isMobileQuery.matches) return;
+
+      // Retornar suavemente a la posición neutra original
+      gsap.to(tiltImage, {
+        rotateX: 0,
+        rotateY: 0,
+        duration: 1.2,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+
+      // Retornar el prisma a su posición y opacidad base
+      gsap.to(chromaPrisma, {
+        x: 0,
+        y: 0,
+        opacity: 0,
+        duration: 1.2,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+    };
+
+    heroSection.addEventListener('mousemove', handleMouseMove);
+    heroSection.addEventListener('mouseleave', handleMouseLeave);
+  }
+</script>

@@ -1,0 +1,402 @@
+---
+// SidePanel.astro — Premium side panel: Ad carousel + Live news feed
+---
+
+<aside id="side-panel" class="sp" aria-label="Panel informativo">
+  <!-- AD CAROUSEL -->
+  <div class="sp__ads">
+    <span class="sp__label">Publicidad</span>
+    <div class="sp__ad-viewport">
+      <div class="sp__ad-track" id="ad-track">
+        <div class="sp__ad-slide sp__ad-slide--active" data-ad="0">
+          <svg viewBox="0 0 260 195" fill="none"><rect width="260" height="195" rx="6" fill="#141B2D"/><rect x=".5" y=".5" width="259" height="194" rx="5.5" stroke="#B8935A" stroke-opacity=".15"/><path d="M70 120l25-35 22 28 28-42 35 49H70z" fill="#B8935A" fill-opacity=".12"/><circle cx="95" cy="70" r="14" fill="#B8935A" fill-opacity=".15"/><text x="130" y="170" text-anchor="middle" fill="#B8935A" font-family="DM Sans" font-size="11" font-weight="600" letter-spacing="3" opacity=".5">SU MARCA AQUÍ</text></svg>
+        </div>
+        <div class="sp__ad-slide" data-ad="1">
+          <svg viewBox="0 0 260 195" fill="none"><rect width="260" height="195" rx="6" fill="#141B2D"/><rect x=".5" y=".5" width="259" height="194" rx="5.5" stroke="#B8935A" stroke-opacity=".15"/><path d="M115 65l24 14-24 14V65z" fill="#B8935A" fill-opacity=".2"/><rect x="80" y="50" width="100" height="75" rx="4" stroke="#B8935A" stroke-opacity=".15"/><text x="130" y="170" text-anchor="middle" fill="#B8935A" font-family="DM Sans" font-size="11" font-weight="600" letter-spacing="3" opacity=".5">ESPACIO VIDEO</text></svg>
+        </div>
+        <div class="sp__ad-slide" data-ad="2">
+          <svg viewBox="0 0 260 195" fill="none"><rect width="260" height="195" rx="6" fill="#141B2D"/><rect x=".5" y=".5" width="259" height="194" rx="5.5" stroke="#B8935A" stroke-opacity=".15"/><rect x="80" y="50" width="100" height="70" rx="3" stroke="#B8935A" stroke-opacity=".18"/><path d="M100 70h60M100 82h45M100 94h52" stroke="#B8935A" stroke-opacity=".12"/><text x="130" y="170" text-anchor="middle" fill="#B8935A" font-family="DM Sans" font-size="11" font-weight="600" letter-spacing="3" opacity=".5">BANNER PREMIUM</text></svg>
+        </div>
+      </div>
+      <button class="sp__ad-arr sp__ad-arr--l" id="ad-prev" aria-label="Anterior"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 19l-7-7 7-7"/></svg></button>
+      <button class="sp__ad-arr sp__ad-arr--r" id="ad-next" aria-label="Siguiente"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+    <div class="sp__dots" id="ad-dots">
+      <button class="sp__dot sp__dot--on" data-dot="0"></button>
+      <button class="sp__dot" data-dot="1"></button>
+      <button class="sp__dot" data-dot="2"></button>
+    </div>
+  </div>
+
+  <!-- NEWS FEED -->
+  <div class="sp__feed">
+    <div class="sp__feed-head">
+      <span class="sp__label" style="margin:0">Noticias en Vivo</span>
+      <span class="sp__live"></span>
+    </div>
+    <div class="sp__feed-list" id="news-feed">
+      <div class="sp__sk"><div class="sp__sk-t"></div><div class="sp__sk-b"><div class="sp__sk-l"></div><div class="sp__sk-l sp__sk-s"></div></div></div>
+      <div class="sp__sk"><div class="sp__sk-t"></div><div class="sp__sk-b"><div class="sp__sk-l"></div><div class="sp__sk-l sp__sk-s"></div></div></div>
+      <div class="sp__sk"><div class="sp__sk-t"></div><div class="sp__sk-b"><div class="sp__sk-l"></div><div class="sp__sk-l sp__sk-s"></div></div></div>
+    </div>
+  </div>
+</aside>
+
+<!-- MOBILE FAB & DRAWER -->
+<div class="sp-mobile-wrap">
+  <!-- Botón Flotante -->
+  <button id="sp-fab" class="sp-fab" aria-label="Abrir Noticias y Novedades">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+    <span>Noticias</span>
+    <span class="sp-fab__dot"></span>
+  </button>
+
+  <!-- Overlay -->
+  <div id="sp-drawer-overlay" class="sp-drawer-overlay"></div>
+  
+  <!-- Drawer (Bottom Sheet) -->
+  <section id="sp-drawer" class="sp-drawer" aria-label="Noticias y Publicidad Móvil">
+    <div class="sp-drawer__handle-wrap" id="sp-drawer-close">
+      <div class="sp-drawer__handle"></div>
+    </div>
+    
+    <div class="sp-drawer__content">
+      <span class="sp__label">Publicidad</span>
+      <div class="sp__ad-viewport sp__ad-viewport--mob">
+        <div class="sp__ad-track" id="ad-track-m">
+          <div class="sp__ad-slide sp__ad-slide--active"><svg viewBox="0 0 260 195" fill="none"><rect width="260" height="195" rx="6" fill="#141B2D"/><rect x=".5" y=".5" width="259" height="194" rx="5.5" stroke="#B8935A" stroke-opacity=".15"/><path d="M70 120l25-35 22 28 28-42 35 49H70z" fill="#B8935A" fill-opacity=".12"/><circle cx="95" cy="70" r="14" fill="#B8935A" fill-opacity=".15"/><text x="130" y="170" text-anchor="middle" fill="#B8935A" font-family="DM Sans" font-size="11" font-weight="600" letter-spacing="3" opacity=".5">SU MARCA AQUÍ</text></svg></div>
+        </div>
+      </div>
+      
+      <div class="sp__feed-head" style="margin-top:1.5rem">
+        <span class="sp__label" style="margin:0">Noticias en Vivo</span>
+        <span class="sp__live"></span>
+      </div>
+      <div class="sp__feed-list sp__feed-list--mob" id="news-feed-m"></div>
+    </div>
+  </section>
+</div>
+
+<style is:global>
+/* ══ PANEL ══ */
+.sp { position:fixed; top:80px; right:0; transform:translateX(110%); width:310px; max-height:calc(100vh - 96px); z-index:45; display:flex; flex-direction:column; padding:16px 12px; background:linear-gradient(168deg, rgba(12,18,35,0.92) 0%, rgba(8,12,24,0.98) 50%, rgba(14,20,38,0.95) 100%); backdrop-filter:blur(40px) saturate(180%); -webkit-backdrop-filter:blur(40px) saturate(180%); border-left:1px solid rgba(184,147,90,0.25); border-top:1px solid rgba(184,147,90,0.15); border-bottom:1px solid rgba(184,147,90,0.15); border-radius:14px 0 0 14px; box-shadow:-12px 0 60px rgba(0,0,0,0.5), inset 1px 0 0 rgba(184,147,90,0.12), inset 0 1px 0 rgba(255,255,255,0.05); transition:transform 1s cubic-bezier(0.16, 1, 0.3, 1); overflow:hidden; }
+.sp::before { content:''; position:absolute; top:16px; bottom:16px; left:0; width:2px; background:linear-gradient(180deg, transparent, #B8935A 30%, #D4B87A 50%, #B8935A 70%, transparent); opacity:0.6; z-index:1; }
+.sp::after { content:''; position:absolute; top:0; left:0; right:0; height:120px; background:radial-gradient(ellipse at 50% 0%, rgba(184,147,90,0.08) 0%, transparent 70%); pointer-events:none; }
+.sp.sp--vis { transform:translateX(0); }
+@media(max-width:1199px) { .sp { display:none!important; } }
+
+/* ══ LABEL ══ */
+.sp__label { display:block; font-family:'DM Sans', sans-serif; font-size:10px; font-weight:700; letter-spacing:0.35em; text-transform:uppercase; color:#D4B87A; margin-bottom:10px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+
+/* ══ ADS ══ */
+.sp__ads { flex-shrink:0; position:relative; z-index:2; margin-bottom:8px; }
+.sp__ad-viewport { position:relative; border-radius:10px; overflow:hidden; border:1px solid rgba(184,147,90,0.2); background:#0E1426; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+.sp__ad-track { position:relative; aspect-ratio:4/3; width:100%; }
+.sp__ad-slide { position:absolute; inset:0; opacity:0; pointer-events:none; display:flex; align-items:center; justify-content:center; }
+.sp__ad-slide svg { width:100%; height:100%; display:block; }
+.sp__ad-slide--active { opacity:1; pointer-events:auto; }
+.sp__ad-arr { position:absolute; top:50%; transform:translateY(-50%); width:28px; height:28px; border-radius:50%; background:rgba(10,15,28,0.8); backdrop-filter:blur(8px); border:1px solid rgba(184,147,90,0.3); color:#D4B87A; display:flex; align-items:center; justify-content:center; cursor:pointer; opacity:0; transition:0.3s; z-index:2; padding:0; }
+.sp__ad-viewport:hover .sp__ad-arr { opacity:1; }
+.sp__ad-arr:hover { background:rgba(184,147,90,0.2); border-color:rgba(184,147,90,0.6); transform:translateY(-50%) scale(1.1); }
+.sp__ad-arr--l { left:6px; }
+.sp__ad-arr--r { right:6px; }
+.sp__dots { display:flex; justify-content:center; gap:6px; padding:10px 0 4px; }
+.sp__dot { width:6px; height:6px; border-radius:50%; background:rgba(184,147,90,0.25); border:none; cursor:pointer; transition:0.3s; padding:0; }
+.sp__dot--on { background:#D4B87A; box-shadow:0 0 8px rgba(212,184,122,0.6); transform:scale(1.2); }
+
+/* ══ FEED ══ */
+.sp__feed { flex:1; display:flex; flex-direction:column; min-height:0; position:relative; z-index:2; }
+.sp__feed-head { display:flex; align-items:center; gap:8px; margin-bottom:8px; padding-top:10px; border-top:1px solid rgba(184,147,90,0.15); }
+.sp__live { width:8px; height:8px; border-radius:50%; background:#ef4444; animation:pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; flex-shrink:0; box-shadow: 0 0 8px rgba(239,68,68,0.6); }
+@keyframes pulse { 0%, 100% { opacity:1; } 50% { opacity:0.4; } }
+
+.sp__feed-list { flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:4px; min-height:0; padding-right:4px; scroll-behavior: smooth; }
+/* Scrollbar elegante */
+.sp__feed-list::-webkit-scrollbar { width: 4px; }
+.sp__feed-list::-webkit-scrollbar-track { background: rgba(184,147,90,0.05); border-radius: 4px; }
+.sp__feed-list::-webkit-scrollbar-thumb { background: rgba(184,147,90,0.4); border-radius: 4px; }
+.sp__feed-list::-webkit-scrollbar-thumb:hover { background: rgba(184,147,90,0.7); }
+
+/* ══ NEWS ITEM ══ */
+.sp__ni { display:flex; gap:12px; padding:12px 10px; border-radius:8px; border:1px solid transparent; background:rgba(255,255,255,0.02); text-decoration:none; transition:all 0.3s cubic-bezier(0.16, 1, 0.3, 1); cursor:pointer; flex-shrink:0; }
+.sp__ni:hover { background:rgba(184,147,90,0.08); border-color:rgba(184,147,90,0.2); transform: translateX(2px); }
+.sp__ni-img { width:60px; height:60px; border-radius:6px; background:#0A0F1C; flex-shrink:0; overflow:hidden; display:flex; align-items:center; justify-content:center; border: 1px solid rgba(184,147,90,0.1); }
+.sp__ni-img img { width:100%; height:100%; object-fit:cover; transition: transform 0.5s; }
+.sp__ni:hover .sp__ni-img img { transform: scale(1.08); }
+.sp__ni-img svg { width:20px; height:20px; color:rgba(184,147,90,0.4); }
+.sp__ni-bd { flex:1; min-width:0; display:flex; flex-direction:column; justify-content:center; gap:4px; }
+.sp__ni-src { font-family:'DM Sans', sans-serif; font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#D4B87A; }
+.sp__ni-t { font-family:'DM Sans', sans-serif; font-size:12px; font-weight:500; line-height:1.45; color:#FFFFFF; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; margin:0; text-shadow: 0 1px 2px rgba(0,0,0,0.4); }
+.sp__ni-tm { font-family:'DM Sans', sans-serif; font-size:9px; color:rgba(255,255,255,0.5); letter-spacing:0.04em; }
+
+/* ══ SKELETON ══ */
+.sp__sk { display:flex; gap:12px; padding:12px 10px; }
+.sp__sk-t { width:60px; height:60px; border-radius:6px; background:linear-gradient(90deg, rgba(184,147,90,0.05) 25%, rgba(184,147,90,0.12) 50%, rgba(184,147,90,0.05) 75%); background-size:200% 100%; animation:shm 1.5s infinite; }
+.sp__sk-b { flex:1; display:flex; flex-direction:column; justify-content:center; gap:8px; }
+.sp__sk-l { height:10px; border-radius:4px; background:linear-gradient(90deg, rgba(184,147,90,0.05) 25%, rgba(184,147,90,0.12) 50%, rgba(184,147,90,0.05) 75%); background-size:200% 100%; animation:shm 1.5s infinite; width:95%; }
+.sp__sk-s { width:60%; }
+@keyframes shm { 0% { background-position:200% 0; } 100% { background-position:-200% 0; } }
+
+/* ══ MOBILE FAB & DRAWER ══ */
+.sp-mobile-wrap { display:none; }
+@media(max-width:1199px) {
+  .sp-mobile-wrap { display:block; }
+  
+  /* FAB */
+  .sp-fab { position:fixed; bottom:24px; right:24px; z-index:40; display:flex; align-items:center; gap:8px; background:linear-gradient(135deg, rgba(12,18,35,0.98), rgba(8,12,24,1)); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border:1px solid rgba(184,147,90,0.3); border-radius:30px; padding:12px 20px; color:#D4B87A; box-shadow:0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05); font-family:'DM Sans', sans-serif; font-size:11px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; cursor:pointer; transition:all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+  .sp-fab:hover { transform: translateY(-4px); box-shadow:0 12px 40px rgba(0,0,0,0.6); border-color: rgba(184,147,90,0.6); }
+  .sp-fab svg { width:18px; height:18px; }
+  .sp-fab__dot { position:absolute; top:8px; right:14px; width:6px; height:6px; border-radius:50%; background:#ef4444; animation:pulse 2s infinite; box-shadow:0 0 8px rgba(239,68,68,0.6); }
+  
+  /* DRAWER OVERLAY */
+  .sp-drawer-overlay { position:fixed; inset:0; background:rgba(4,6,12,0.85); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); z-index:50; opacity:0; pointer-events:none; transition:opacity 0.5s; }
+  .sp-drawer-overlay.is-active { opacity:1; pointer-events:auto; }
+  
+  /* DRAWER */
+  .sp-drawer { position:fixed; bottom:0; left:0; right:0; z-index:51; background:linear-gradient(180deg, rgba(14,20,38,0.98) 0%, rgba(8,12,24,1) 100%); border-top:1px solid rgba(184,147,90,0.3); border-radius:24px 24px 0 0; box-shadow:0 -10px 40px rgba(0,0,0,0.6); transform:translateY(100%); transition:transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); max-height:85vh; display:flex; flex-direction:column; }
+  .sp-drawer.is-active { transform:translateY(0); }
+  
+  .sp-drawer__handle-wrap { padding:16px; display:flex; justify-content:center; cursor:pointer; }
+  .sp-drawer__handle { width:40px; height:4px; border-radius:2px; background:rgba(184,147,90,0.3); transition:background 0.3s; }
+  .sp-drawer__handle-wrap:hover .sp-drawer__handle { background:rgba(184,147,90,0.6); }
+  
+  .sp-drawer__content { padding:0 24px 32px; overflow-y:auto; flex:1; scrollbar-width: none; }
+  .sp-drawer__content::-webkit-scrollbar { display: none; }
+  
+  .sp__ad-viewport--mob { max-width:400px; margin:0 auto; width:100%; aspect-ratio:4/3; }
+  .sp__feed-list--mob { overflow:visible; padding-right:0; margin-bottom:20px; }
+  .sp__feed-list--mob .sp__ni { background: rgba(0,0,0,0.2); }
+}
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+
+  // Helper para sanitizar strings y evitar XSS
+  const escapeHTML = (str: string) => str.replace(/[&<>'"]/g, 
+    tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+  );
+
+  interface NI { title:string; link:string; source:string; pubDate:string; thumb:string; }
+
+  const AD_INT = 12000;
+  const AD_N = 3;
+  const NEWSDATA_KEY = 'pub_00df9dfec2f04ac7bf8a74db18d60d6b';
+
+  let items: NI[] = [];
+  let adIdx = 0;
+  let aT: ReturnType<typeof setInterval> | null = null;
+
+  function pND(d: any): NI[] {
+    if (!d?.results) return [];
+    return d.results.filter((a:any)=>a.title?.trim()).slice(0, 20).map((a:any)=>({
+      title: a.title.trim(), 
+      link: a.link || '#', 
+      source: a.source_name || 'Noticias',
+      pubDate: a.pubDate || '', 
+      thumb: a.image_url || ''
+    }));
+  }
+  function pRSS(d: any, s: string): NI[] {
+    if (!d?.items) return [];
+    return d.items.slice(0, 15).map((a:any)=>({
+      title: a.title?.trim() || '', 
+      link: a.link || '#', 
+      source: s,
+      pubDate: a.pubDate || '', 
+      thumb: a.thumbnail || a.enclosure?.link || ''
+    })).filter((n:NI)=>n.title);
+  }
+
+  function ago(d:string):string {
+    if(!d) return 'Reciente';
+    const t = new Date(d).getTime();
+    if(isNaN(t)) return 'Reciente';
+    const m = Math.floor((Date.now() - t) / 60000);
+    if(m < 1) return 'Ahora';
+    if(m < 60) return `Hace ${m} min`;
+    const h = Math.floor(m / 60);
+    return h < 24 ? `Hace ${h}h` : `Hace ${Math.floor(h/24)}d`;
+  }
+
+  function imgH(u:string):string {
+    if(u) return `<img src="${escapeHTML(u)}" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling&&(this.nextElementSibling.style.display='flex')"/><div style="display:none;width:100%;height:100%;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;color:rgba(184,147,90,0.3)"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 16l5-5 4 4 4-6 5 7"/></svg></div>`;
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;color:rgba(184,147,90,0.3)"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 16l5-5 4 4 4-6 5 7"/></svg>`;
+  }
+
+  function cardHTML(n:NI):string {
+    return `<a href="${escapeHTML(n.link)}" target="_blank" rel="noopener noreferrer" class="sp__ni"><div class="sp__ni-img">${imgH(n.thumb)}</div><div class="sp__ni-bd"><span class="sp__ni-src">${escapeHTML(n.source)}</span><p class="sp__ni-t">${escapeHTML(n.title)}</p><span class="sp__ni-tm">${ago(n.pubDate)}</span></div></a>`;
+  }
+
+  function renderAll(trackId:string, list:NI[]) {
+    const el = document.getElementById(trackId);
+    if(!el || !list.length) return;
+    
+    const cards = list.map(ni => cardHTML(ni));
+    el.innerHTML = cards.join('');
+    
+    gsap.fromTo(el.querySelectorAll('.sp__ni'), 
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: 'power2.out' }
+    );
+
+    startAutoScroll(el);
+  }
+
+  function startAutoScroll(el: HTMLElement) {
+    const anyEl = el as any;
+    if(anyEl._autoScroll) clearInterval(anyEl._autoScroll);
+    
+    anyEl._autoScroll = setInterval(() => {
+      if(el.scrollTop + el.clientHeight >= el.scrollHeight - 1) {
+        gsap.to(el, { scrollTop: 0, duration: 1, ease: 'power2.inOut' });
+      } else {
+        el.scrollTop += 1;
+      }
+    }, 40);
+
+    el.addEventListener('mouseenter', () => clearInterval(anyEl._autoScroll));
+    el.addEventListener('mouseleave', () => {
+      clearInterval(anyEl._autoScroll);
+      anyEl._autoScroll = setInterval(() => {
+        if(el.scrollTop + el.clientHeight >= el.scrollHeight - 1) {
+          gsap.to(el, { scrollTop: 0, duration: 1, ease: 'power2.inOut' });
+        } else {
+          el.scrollTop += 1;
+        }
+      }, 40);
+    });
+  }
+
+  function goAd(i:number){
+    document.querySelectorAll('#ad-track .sp__ad-slide').forEach((s,j)=>{
+      if(j===i){gsap.to(s,{opacity:1,duration:1,ease:'power2.inOut'});s.classList.add('sp__ad-slide--active');(s as HTMLElement).style.pointerEvents='auto';}
+      else{gsap.to(s,{opacity:0,duration:0.8,ease:'power2.inOut'});s.classList.remove('sp__ad-slide--active');(s as HTMLElement).style.pointerEvents='none';}
+    });
+    document.querySelectorAll('#ad-dots .sp__dot').forEach((d,j)=>d.classList.toggle('sp__dot--on',j===i));
+    adIdx=i;
+  }
+  function nAd(){goAd((adIdx+1)%AD_N)}
+  function pAd(){goAd((adIdx-1+AD_N)%AD_N)}
+  function rAd(){if(aT)clearInterval(aT);aT=setInterval(nAd,AD_INT)}
+
+  // Auxiliar para peticiones fetch con timeout estricto para evitar bloqueos
+  async function fetchWithTimeout(url: string, options = {}, timeout = 4000): Promise<Response> {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    try {
+      const response = await fetch(url, { ...options, signal: controller.signal });
+      clearTimeout(id);
+      return response;
+    } catch (error) {
+      clearTimeout(id);
+      throw error;
+    }
+  }
+
+  async function fND(q:string):Promise<NI[]>{
+    try {
+      const r = await fetchWithTimeout(`https://newsdata.io/api/1/latest?apikey=${NEWSDATA_KEY}&${q}`);
+      if(!r.ok) return [];
+      return pND(await r.json());
+    } catch {
+      return [];
+    }
+  }
+  async function fRSS():Promise<NI[]>{
+    try {
+      const r = await fetchWithTimeout(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://feeds.bbci.co.uk/mundo/rss.xml')}`);
+      if(!r.ok) return [];
+      return pRSS(await r.json(),'BBC Mundo');
+    } catch {
+      return [];
+    }
+  }
+
+  async function fetchAll(){
+    // 1. Carga optimista: mostrar de inmediato las noticias institucionales de fallback
+    const fallbackItems: NI[] = [
+      {title:'Ecuador impulsa su agenda de transformación digital para 2026',link:'#',source:'CISDE',pubDate:new Date().toISOString(),thumb:''},
+      {title:'Innovación y tecnología: pilares del desarrollo sostenible',link:'#',source:'CISDE',pubDate:new Date().toISOString(),thumb:''},
+      {title:'Capacitación avanzada como motor de competitividad empresarial',link:'#',source:'CISDE',pubDate:new Date().toISOString(),thumb:''},
+      {title:'Nuevas estrategias de I+D+i transforman el mercado regional',link:'#',source:'CISDE',pubDate:new Date().toISOString(),thumb:''},
+      {title:'El ecosistema tech ecuatoriano alcanza proyección internacional',link:'#',source:'CISDE',pubDate:new Date().toISOString(),thumb:''},
+      {title:'Startups en LATAM rompen récord de inversión',link:'#',source:'CISDE',pubDate:new Date().toISOString(),thumb:''},
+    ];
+
+    // Si es la primera carga y no hay noticias guardadas, renderizamos el fallback al instante
+    if (items.length === 0) {
+      items = fallbackItems;
+      renderAll('news-feed', items);
+      renderAll('news-feed-m', items);
+    }
+
+    // 2. Fetch en segundo plano: intentar descargar noticias frescas
+    let all: NI[] = [];
+    try {
+      all = await fND('country=ec&language=es');
+      if (all.length < 5) {
+        const fb = await fND('language=es&category=technology,business');
+        all = all.concat(fb);
+      }
+      if (all.length < 5) {
+        all = all.concat(await fRSS());
+      }
+    } catch (e) {
+      // Falla silenciosa para no interrumpir la experiencia de usuario
+    }
+
+    if (all.length > 0) {
+      const seen = new Set<string>();
+      const freshItems = all.filter(n => {
+        const k = n.title.slice(0, 40).toLowerCase();
+        if(seen.has(k)) return false;
+        seen.add(k);
+        return true;
+      });
+
+      if (freshItems.length > 0) {
+        items = freshItems;
+        renderAll('news-feed', items);
+        renderAll('news-feed-m', items);
+      }
+    }
+  }
+
+  function init(){
+    const p = document.getElementById('side-panel');
+    const fab = document.getElementById('sp-fab');
+    const drawer = document.getElementById('sp-drawer');
+    const overlay = document.getElementById('sp-drawer-overlay');
+    const closeHandle = document.getElementById('sp-drawer-close');
+    
+    // Entrada del panel desktop
+    setTimeout(()=> p?.classList.add('sp--vis'), 2000);
+    
+    // Lógica del Drawer Móvil
+    const toggleDrawer = () => {
+      drawer?.classList.toggle('is-active');
+      overlay?.classList.toggle('is-active');
+    };
+    
+    fab?.addEventListener('click', toggleDrawer);
+    closeHandle?.addEventListener('click', toggleDrawer);
+    overlay?.addEventListener('click', toggleDrawer);
+    
+    // Controles de Ads
+    document.getElementById('ad-next')?.addEventListener('click', ()=>{nAd();rAd();});
+    document.getElementById('ad-prev')?.addEventListener('click', ()=>{pAd();rAd();});
+    document.querySelectorAll('#ad-dots .sp__dot').forEach(d => {
+      d.addEventListener('click', ()=>{goAd(parseInt((d as HTMLElement).dataset.dot||'0'));rAd();});
+    });
+    
+    rAd();
+    fetchAll();
+    
+    setInterval(fetchAll, 180000);
+  }
+
+  if(document.readyState === 'complete') init();
+  else window.addEventListener('load', init);
+  document.addEventListener('astro:page-load', init);
+</script>

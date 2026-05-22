@@ -1,0 +1,55 @@
+---
+---
+<div id="cookie-banner" class="fixed bottom-0 left-0 w-full z-[9990] transform translate-y-full transition-transform duration-700 ease-corporate">
+  <div class="mx-4 mb-4 lg:mx-8 lg:mb-8 glass-panel-dark p-8 lg:p-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 shadow-2xl rounded-sm">
+    <div class="flex-grow max-w-2xl">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-2 h-2 rounded-full bg-brand-primary"></div>
+        <p class="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-primary">Privacidad y Cookies</p>
+      </div>
+      <p class="text-sm text-brand-light/60 font-light leading-relaxed">
+        CISDE Ecuador utiliza cookies estrictamente esenciales y analíticas conforme a la <strong class="text-brand-light/80 font-medium">LOPDP</strong>. Su consentimiento explícito es necesario antes de activar cualquier script de seguimiento no esencial.
+      </p>
+    </div>
+    <div class="flex gap-4 shrink-0">
+      <button id="reject-cookies" class="px-6 py-3 border border-brand-light/10 text-brand-light/70 hover:border-brand-primary/40 hover:text-brand-primary transition-all duration-500 text-[10px] uppercase tracking-[0.2em] font-semibold">
+        Solo Esenciales
+      </button>
+      <button id="accept-cookies" class="px-6 py-3 bg-brand-primary text-white hover:bg-brand-primary-light transition-colors duration-500 text-[10px] uppercase tracking-[0.2em] font-semibold">
+        Aceptar Todas
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const banner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('accept-cookies');
+    const rejectBtn = document.getElementById('reject-cookies');
+
+    const hasConsent = localStorage.getItem('cisde_cookie_consent');
+
+    if (!hasConsent && banner) {
+      setTimeout(() => {
+        banner.classList.remove('translate-y-full');
+      }, 2000);
+    }
+
+    const closeBanner = () => {
+      if (banner) {
+        banner.classList.add('translate-y-full');
+      }
+    };
+
+    acceptBtn?.addEventListener('click', () => {
+      localStorage.setItem('cisde_cookie_consent', 'all');
+      closeBanner();
+    });
+
+    rejectBtn?.addEventListener('click', () => {
+      localStorage.setItem('cisde_cookie_consent', 'essential');
+      closeBanner();
+    });
+  });
+</script>

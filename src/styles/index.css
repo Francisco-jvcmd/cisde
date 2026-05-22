@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: auto; /* Lenis handles this */
+  }
+
+  body {
+    @apply bg-brand-light text-brand-dark font-body antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: #B8935A;
+    color: #fff;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #FAFAF8;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #B8935A;
+    border-radius: 99px;
+  }
+}
+
+@layer components {
+  /* Noise texture overlay */
+  .noise-overlay::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Text reveal animation base */
+  .reveal-text {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .reveal-text > * {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  /* Horizontal rule gold */
+  .hr-gold {
+    @apply h-px bg-gradient-to-r from-brand-primary/60 via-brand-primary to-brand-primary/60;
+    transform-origin: left;
+  }
+
+  /* Glass panel */
+  .glass-panel {
+    background: rgba(250, 250, 248, 0.6);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(10, 15, 28, 0.06);
+  }
+
+  .glass-panel-dark {
+    background: rgba(10, 15, 28, 0.7);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(184, 147, 90, 0.1);
+  }
+
+  /* Magnetic button styles */
+  .magnetic-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 18px 42px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+    border: none;
+    transition: color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .magnetic-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    transform: translateY(101%);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 0;
+  }
+
+  .magnetic-btn:hover::before {
+    transform: translateY(0);
+  }
+
+  .magnetic-btn .btn-label {
+    position: relative;
+    z-index: 1;
+    mix-blend-mode: difference;
+    color: #fff;
+  }
+
+  .magnetic-btn .btn-arrow {
+    position: relative;
+    z-index: 1;
+    width: 24px;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .magnetic-btn:hover .btn-arrow {
+    width: 40px;
+  }
+
+  /* Counter animation */
+  .counter {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Hero rotating geometric frames */
+.hero-rotate {
+  animation: heroSpin 60s linear infinite;
+}
+.hero-rotate-reverse {
+  animation: heroSpin 45s linear infinite reverse;
+}
+@keyframes heroSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Side panel content offset — prevents the fixed panel from covering content */
+@media (min-width: 1200px) {
+  main {
+    padding-right: 290px;
+    transition: padding-right 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  footer {
+    padding-right: 290px;
+    transition: padding-right 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}

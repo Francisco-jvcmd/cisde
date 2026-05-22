@@ -1,0 +1,378 @@
+---
+import '../styles/index.css';
+import CookieBanner from '../components/CookieBanner.astro';
+import SidePanel from '../components/SidePanel.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  darkNav?: boolean;
+}
+
+const { title, description, darkNav = false } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/logo-cisde.png" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- SEO -->
+    <title>{title} | CISDE Ecuador</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0A0F1C" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Corporation",
+      "name": "CISDE Ecuador",
+      "url": "https://cisde.ec",
+      "description": "Centro de Innovación Social y Desarrollo — Soluciones corporativas de alto nivel en Ecuador",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Quito",
+        "addressCountry": "EC"
+      }
+    })} />
+  </head>
+  <body class="noise-overlay relative min-h-screen flex flex-col">
+    
+    <!-- Custom Cursor -->
+    <div id="cursor" class="fixed top-0 left-0 w-5 h-5 rounded-full border border-brand-primary/60 pointer-events-none z-[9998] mix-blend-difference transition-transform duration-100 ease-out hidden lg:block" style="transform: translate(-50%, -50%);"></div>
+    <div id="cursor-dot" class="fixed top-0 left-0 w-1.5 h-1.5 rounded-full bg-brand-primary pointer-events-none z-[9998] hidden lg:block" style="transform: translate(-50%, -50%);"></div>
+
+    <!-- Navigation -->
+    <nav id="main-nav" data-dark={darkNav ? 'true' : 'false'} class={`fixed top-0 left-0 w-full z-50 px-6 lg:px-16 py-4 flex justify-between items-center transition-all duration-700 ${darkNav ? 'text-brand-light' : 'text-brand-dark'}`}>
+      <a href="/" class="flex items-center gap-3 relative z-10 group" aria-label="CISDE Ecuador Home">
+        <img src="/logo-cisde.png" alt="CISDE Ecuador Logo" class="h-10 lg:h-12 w-auto object-contain transition-all duration-500 hover:drop-shadow-[0_0_12px_rgba(184,147,90,0.4)]" />
+      </a>
+      
+      <div class="hidden lg:flex items-center gap-12">
+        <div class="flex gap-10 text-[11px] font-semibold tracking-[0.25em] uppercase">
+          <a href="/" class="nav-link relative group py-2">
+            <span>Home</span>
+            <span class="absolute bottom-0 left-0 w-0 h-px bg-brand-primary transition-all duration-500 group-hover:w-full"></span>
+          </a>
+          <a href="/servicios" class="nav-link relative group py-2">
+            <span>Servicios</span>
+            <span class="absolute bottom-0 left-0 w-0 h-px bg-brand-primary transition-all duration-500 group-hover:w-full"></span>
+          </a>
+          <a href="/blog" class="nav-link relative group py-2">
+            <span>Blog</span>
+            <span class="absolute bottom-0 left-0 w-0 h-px bg-brand-primary transition-all duration-500 group-hover:w-full"></span>
+          </a>
+          <a href="/contacto" class="nav-link relative group py-2">
+            <span>Contacto</span>
+            <span class="absolute bottom-0 left-0 w-0 h-px bg-brand-primary transition-all duration-500 group-hover:w-full"></span>
+          </a>
+        </div>
+        <a href="/contacto" class="magnetic-btn bg-brand-primary text-white">
+          <span class="btn-label">Agendar</span>
+          <span class="btn-arrow bg-white"></span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <button id="menu-toggle" class="lg:hidden relative z-10 w-8 h-6 flex flex-col justify-between" aria-label="Menú">
+        <span class="block w-full h-px bg-current transition-all duration-500 origin-left" id="menu-line-1"></span>
+        <span class="block w-2/3 h-px bg-current transition-all duration-500 ml-auto" id="menu-line-2"></span>
+        <span class="block w-full h-px bg-current transition-all duration-500 origin-left" id="menu-line-3"></span>
+      </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-brand-dark flex flex-col items-center justify-center gap-8 transform translate-x-full transition-transform duration-700 ease-corporate lg:hidden">
+      <img src="/logo-cisde.png" alt="CISDE Logo" class="h-16 w-auto mb-8 opacity-90" />
+      <a href="/" class="font-heading text-4xl text-brand-light hover:text-brand-primary transition-colors">Home</a>
+      <a href="/servicios" class="font-heading text-4xl text-brand-light hover:text-brand-primary transition-colors">Servicios</a>
+      <a href="/blog" class="font-heading text-4xl text-brand-light hover:text-brand-primary transition-colors">Blog</a>
+      <a href="/contacto" class="font-heading text-4xl text-brand-light hover:text-brand-primary transition-colors">Contacto</a>
+    </div>
+
+    <main class="flex-grow">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-brand-light relative z-20 overflow-hidden">
+      <!-- Marquee Ticker -->
+      <div class="border-t border-brand-light/5 py-6 overflow-hidden">
+        <div class="flex animate-ticker whitespace-nowrap">
+          <span class="text-[10vw] font-heading font-light text-brand-light/[0.03] uppercase tracking-widest mx-8">CISDE Ecuador</span>
+          <span class="text-[10vw] font-heading font-light text-brand-light/[0.03] uppercase tracking-widest mx-8">Innovación · Desarrollo</span>
+          <span class="text-[10vw] font-heading font-light text-brand-light/[0.03] uppercase tracking-widest mx-8">CISDE Ecuador</span>
+          <span class="text-[10vw] font-heading font-light text-brand-light/[0.03] uppercase tracking-widest mx-8">Innovación · Desarrollo</span>
+        </div>
+      </div>
+
+      <div class="container mx-auto px-8 lg:px-16 py-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
+          <!-- Brand -->
+          <div class="lg:col-span-2">
+            <img src="/logo-cisde.png" alt="CISDE Ecuador" class="h-16 w-auto mb-6 opacity-90" />
+            <span class="text-[10px] tracking-[0.5em] uppercase font-light text-brand-light/40 block mb-8">Centro de Innovación Social y Desarrollo</span>
+            <p class="text-sm font-light text-brand-light/50 max-w-sm leading-relaxed">
+              Construimos el andamiaje estratégico, tecnológico y de innovación que las organizaciones líderes requieren para operar con certeza absoluta en el mercado ecuatoriano.
+            </p>
+          </div>
+          
+          <!-- Navigation -->
+          <div>
+            <p class="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-primary mb-8">Navegación</p>
+            <div class="flex flex-col gap-4 text-sm font-light text-brand-light/60">
+              <a href="/" class="hover:text-brand-primary hover:translate-x-2 transition-all duration-300 inline-block">Home</a>
+              <a href="/servicios" class="hover:text-brand-primary hover:translate-x-2 transition-all duration-300 inline-block">Servicios</a>
+              <a href="/blog" class="hover:text-brand-primary hover:translate-x-2 transition-all duration-300 inline-block">Blog</a>
+              <a href="/contacto" class="hover:text-brand-primary hover:translate-x-2 transition-all duration-300 inline-block">Contacto</a>
+            </div>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <p class="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-primary mb-8">Contacto</p>
+            <div class="flex flex-col gap-4 text-sm font-light text-brand-light/60">
+              <span>contacto@cisde.ec</span>
+              <span>+593 2 000 0000</span>
+              <span class="mt-2">Quito, Ecuador</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="border-t border-brand-light/5 px-8 lg:px-16 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-[10px] tracking-widest uppercase text-brand-light/30 font-light">&copy; {new Date().getFullYear()} CISDE Ecuador. Todos los derechos reservados.</p>
+        <p class="text-[10px] tracking-widest uppercase text-brand-light/30 font-light">Política de Privacidad · Términos LOPDP</p>
+      </div>
+    </footer>
+
+    <SidePanel />
+    <CookieBanner />
+
+    <!-- Global Scripts -->
+    <script>
+      import Lenis from '@studio-freight/lenis';
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // ── Lenis Smooth Scroll ──
+      const lenis = new Lenis({
+        duration: 1.6,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 0.8,
+        touchMultiplier: 2,
+      });
+
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+      gsap.ticker.lagSmoothing(0);
+
+      // ── Custom Cursor ──
+      const cursor = document.getElementById('cursor');
+      const cursorDot = document.getElementById('cursor-dot');
+      let mouseX = 0, mouseY = 0;
+      let cursorX = 0, cursorY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (cursorDot) {
+          cursorDot.style.left = mouseX + 'px';
+          cursorDot.style.top = mouseY + 'px';
+        }
+      });
+
+      function animateCursor() {
+        cursorX += (mouseX - cursorX) * 0.15;
+        cursorY += (mouseY - cursorY) * 0.15;
+        if (cursor) {
+          cursor.style.left = cursorX + 'px';
+          cursor.style.top = cursorY + 'px';
+        }
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+
+      // Cursor hover effects
+      document.querySelectorAll('a, button, .magnetic-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor?.classList.add('!w-12', '!h-12', '!border-brand-primary');
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor?.classList.remove('!w-12', '!h-12', '!border-brand-primary');
+        });
+      });
+
+      // ── Navigation Scroll Effect ──
+      const nav = document.getElementById('main-nav');
+      let lastScroll = 0;
+      window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+        if (nav) {
+          if (currentScroll > 100) {
+            nav.classList.add('glass-panel', '!py-3');
+            nav.classList.remove('text-brand-light');
+            nav.classList.add('text-brand-dark');
+          } else {
+            nav.classList.remove('glass-panel', '!py-3');
+            const isDarkPage = nav.dataset.dark === 'true';
+            if (isDarkPage) {
+              nav.classList.add('text-brand-light');
+              nav.classList.remove('text-brand-dark');
+            }
+          }
+        }
+        lastScroll = currentScroll;
+      });
+
+      // ── Mobile Menu ──
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      let menuOpen = false;
+
+      menuToggle?.addEventListener('click', () => {
+        menuOpen = !menuOpen;
+        if (mobileMenu) {
+          mobileMenu.classList.toggle('translate-x-full', !menuOpen);
+          mobileMenu.classList.toggle('translate-x-0', menuOpen);
+        }
+      });
+
+      // ── Magnetic Button Physics ──
+      document.querySelectorAll('.magnetic-btn').forEach((btn) => {
+        const el = btn as HTMLElement;
+        el.addEventListener('mousemove', (e) => {
+          const rect = el.getBoundingClientRect();
+          const x = ((e as MouseEvent).clientX - rect.left) - rect.width / 2;
+          const y = ((e as MouseEvent).clientY - rect.top) - rect.height / 2;
+          gsap.to(el, { x: x * 0.35, y: y * 0.35, duration: 0.8, ease: 'power3.out' });
+        });
+        el.addEventListener('mouseleave', () => {
+          gsap.to(el, { x: 0, y: 0, duration: 1.2, ease: 'elastic.out(1, 0.3)' });
+        });
+      });
+
+      // ── GSAP ScrollTrigger Reveals ──
+      gsap.utils.toArray('.gsap-reveal').forEach((el: any) => {
+        gsap.fromTo(el, { y: 60, opacity: 0 }, {
+          y: 0, opacity: 1, duration: 1.2, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+        });
+      });
+
+      gsap.utils.toArray('.gsap-reveal-left').forEach((el: any) => {
+        gsap.fromTo(el, { x: -80, opacity: 0 }, {
+          x: 0, opacity: 1, duration: 1.4, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+        });
+      });
+
+      gsap.utils.toArray('.gsap-line-grow').forEach((el: any) => {
+        gsap.fromTo(el, { scaleX: 0 }, {
+          scaleX: 1, duration: 1.5, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none' }
+        });
+      });
+
+      // ── Stagger reveal for lists/grids ──
+      gsap.utils.toArray('.gsap-stagger-container').forEach((container: any) => {
+        const items = container.querySelectorAll('.gsap-stagger-item');
+        gsap.fromTo(items, { y: 50, opacity: 0 }, {
+          y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+          stagger: 0.15,
+          scrollTrigger: { trigger: container, start: 'top 85%', toggleActions: 'play none none none' }
+        });
+      });
+    </script>
+    <script>
+      // Advanced Programmatic Background Removal & Theme Adaptation
+      function processLogos() {
+        const logos = document.querySelectorAll('img[src="/logo-cisde.png"]');
+        if (logos.length === 0) return;
+
+        const img = new Image();
+        img.crossOrigin = "Anonymous";
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          if (!ctx) return;
+          
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+          
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const data = imageData.data;
+          
+          for (let i = 0; i < data.length; i += 4) {
+            const r = data[i];
+            const g = data[i+1];
+            const b = data[i+2];
+            const a = data[i+3];
+            
+            if (a === 0) continue; // Already transparent
+
+            const maxColor = Math.max(r, g, b);
+            const minColor = Math.min(r, g, b);
+            const saturation = maxColor - minColor;
+            const lum = (r + g + b) / 3;
+            
+            // Identify if the pixel is part of the Orange icon (high saturation)
+            if (saturation > 40) {
+              // It's the orange/red icon. Keep the color!
+              // Just clean up extreme white halos around the icon
+              if (lum > 220) {
+                data[i+3] = 0;
+              }
+            } else {
+              // It's a greyscale pixel (either the checkerboard background or the dark text)
+              if (lum > 160) {
+                // It's the light background (white or light grey checkerboard)
+                data[i+3] = 0; // Make transparent
+              } else {
+                // It's the dark text or its anti-aliased edge.
+                // We convert it to PURE WHITE so it looks great on the dark navy theme.
+                data[i] = 255;
+                data[i+1] = 255;
+                data[i+2] = 255;
+                
+                // Calculate smooth alpha based on how dark the original pixel was.
+                // Pure black (lum=0) gets 100% opacity. Gray edges get partial opacity.
+                const alphaScale = 1 - (lum / 160);
+                data[i+3] = Math.max(0, Math.min(255, a * alphaScale * 1.5));
+              }
+            }
+          }
+          
+          ctx.putImageData(imageData, 0, 0);
+          const transparentDataUrl = canvas.toDataURL('image/png');
+          
+          logos.forEach(logo => {
+            (logo as HTMLImageElement).src = transparentDataUrl;
+          });
+        };
+        img.src = '/logo-cisde.png';
+      }
+
+      document.addEventListener('astro:page-load', processLogos);
+      if (document.readyState === 'complete') {
+        processLogos();
+      } else {
+        window.addEventListener('load', processLogos);
+      }
+    </script>
+
+  </body>
+</html>
