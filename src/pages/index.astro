@@ -1,5 +1,6 @@
 ---
 import LayoutCorporativo from '../layouts/LayoutCorporativo.astro';
+import ThreeCanvas from '../components/ThreeCanvas';
 ---
 
 <LayoutCorporativo title="Home" description="CISDE Ecuador — Centro de Innovación Social y Desarrollo" darkNav={true}>
@@ -7,7 +8,7 @@ import LayoutCorporativo from '../layouts/LayoutCorporativo.astro';
   <!-- HERO -->
   <section id="hero-section" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-brand-dark">
     <!-- Dynamic particle canvas background -->
-    <canvas id="hero-canvas" class="absolute inset-0 z-0 w-full h-full"></canvas>
+    <ThreeCanvas client:only="react" />
 
     <!-- Gradient overlay for depth -->
     <div class="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-brand-dark/40 via-transparent to-brand-dark/60"></div>
